@@ -1,0 +1,37 @@
+{
+  "name": "cordova-plugin-ms-azure-mobile-engagement",
+  "version": "3.0.1",
+  "description": "Cordova plugin for Azure Mobile Engagement",
+  "cordova": {
+    "id": "cordova-plugin-ms-azure-mobile-engagement",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Azure/azure-mobile-engagement-cordova"
+  },
+   "devDependencies": {
+    "jshint": "2.5.8",
+    "jscs" : "1.13.1"
+  },
+  "scripts": {
+    "test": "npm run jshint && npm run jscs",
+    "jshint": "jshint www && jshint tests  ",
+    "jscs": "jscs www && jscs tests"
+  },
+  "keywords": [
+    "cordova",
+    "azme",
+    "engagement",
+    "azure",
+    "mobile",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Olivier Goguel",
+  "license": "MIT"
+}
