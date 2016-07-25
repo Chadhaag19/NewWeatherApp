@@ -2,9 +2,21 @@
     display: none;
 }
 
+a {
+    text-align: center;
+}
+
+map {
+    align-content:center;
+}
 form {
     border-bottom: 1px solid #ddd;
     padding-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    text-align: center; 
 }
 
 #zip-code-input {
@@ -12,7 +24,7 @@ form {
 }
 
 #get-weather-btn {
-    font-size: 22px;
+    font-size: 10px;
 }
 
 #title {
@@ -26,7 +38,10 @@ form {
 #summary img {
     float: right;
 }
-
+#radarTimeFrame {
+    width: 100%;
+    text-align: center;
+}
 #error-msg {
     text-align: center;
     margin-top:  50%;

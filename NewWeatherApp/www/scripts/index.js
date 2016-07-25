@@ -8,8 +8,12 @@
         document.addEventListener( 'pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
-        $('#get-weather-btn').click(getWeatherWithZipCode);
-        
+        //$('#get-weather-btn').click(getWeatherWithZipCode);
+        getWeatherWithGeoLocation();
+
+        $('#get-cloudOverlay-btn').click(getCloudOverlay);
+        $('#get-loopOverlay-btn').click(getLoopOverlay);
+        $('#get-currentOverlay-btn').click(getCurrentOverlay);
     };
 
     function onPause() {

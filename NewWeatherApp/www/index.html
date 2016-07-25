@@ -5,47 +5,95 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self' data: gap: https://ssl.gstatic.com http://api.openweathermap.org 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy-Report" content="script-src 'self' data: gap: https://ssl.gstatic.com http://api.openweathermap.org http://tile.openweathermap.org http://openlayers.org/ 'unsafe-eval' 'unsafe-inline'; style-src 'self' ; media-src *">
         
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>NewWeatherApp</title>
+        <link rel="stylesheet" href="http://openlayers.org/en/v3.15.1/css/ol.css" type="text/css"> 
+
+        <title>Weather App</title>
+
     </head>
     <body>    
         <div data-role="page" id="weather-page">
 
             <div data-role="header" class="header">
                 <h1 id="app-title">Weather App</h1>
-                <a href="/" class="ui-btn ui-btn-left ui-btn-corner-all ui-icon-home ui-btn-icon-notext" rel="external">Home</a>
+                <a href="index.html" class="ui-btn ui-btn-left ui-btn-corner-all ui-icon-home ui-btn-icon-notext" rel="external">Home</a>
             </div>
 
             <div role="main" class="ui-content">
-                <form>
+                <!-- <form>
                     <label for="zip-code">Type your zip code:</label>
-                    <input id="zip-code-input" name="zip-code" placeholder="ie. 98001" required />
-                    <button id="get-weather-btn" data-role="button" data-icon="search">Find Weather</button>
-                </form>
+                    <input id="zip-code-input" name="zip-code" placeholder="ie. 98001" required /> <button id="get-weather-btn" data-role="button" data-icon="search">Find Weather</button>
 
-                <ul id="weather-data" data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow not-displayed">
-                    <li data-role="list-divider" id="title" class="ui-li-divider ui-bar-a"></li>
-                    <li><span id="summary"><span id="temperature"></span>&#8457 <img src="" /></span></li>
-                    <li>Current Conditions: <span id="conditions"></span></li>
-                    <li>Wind Speed: <span id="windSpeed"></span> mph at <span id="windDir"></span>&deg;</li>
-                    <li>Humidity: <span id="humidity"></span> %</li>
-                    <li>Sunrise: <span id="sunrise"></span></li>
-                    <li>Sunset: <span id="sunset"></span></li>
-                    <li><span id="summary" font="align:center">Today's Stats</span></li>
+                </form> -->
+                
+                <ul id="today-weather-data" data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow not-displayed">
+                    <li data-role="list-divider" id="todayCity" class="ui-li-divider ui-bar-a"></li>
+                    <li><span id="summary"><span id="temperature"></span>&#8457 <img src="" /></span>  <img id="conditionIcon"></img></li>
+                    <li>Wind Speed: <span id="windSpeed"></span> mph from <span id="windDir"></span></li>
+                    <li>Humidity: <span id="humidity"></span>% | Pressure: <span id="todayPressure"></span>hPa</li>
+                    <li>Sunrise: <span id="sunrise"></span> | Sunset: <span id="sunset"></span></li>
                     <li>Local temperature range: <span id="minTemp"></span>&#8457 to <span id="maxTemp"></span>&#8457</li>
-                    <li>Rain Volume for last 3 hours: <span id="rainVolume"></span>in</li>
+                    <li><span id="rainVolume"></span></li>
                 </ul>
 
-                <div id="error-msg" class="not-displayed">
+                <table id="forecast-weather-data" class="not-displayed">
+                        <tr>
+                            <td width="20%">Time</td>
+                            <td width="20%">Temp</td>
+                            <td width="20%">Cond</td>
+                            <td width="40%">Wind</td>
+                        </tr>
+                        <tr>
+                            <td><span id="forecast0DayTime"></span></td>
+                            <td><span id="forecast0Temp"></span>&#8457</td>
+                            <td><img src="" id="forecast0ConditionIcon"></img></td>
+                            <td><span id="forecast0WindSpeed"></span> mph from <span id="forecast0WindDir"></span></td>
+                        </tr>
+                        <tr>
+                            <td><span id="forecast1DayTime"></span></td>
+                            <td><span id="forecast1Temp"></span>&#8457</td>
+                            <td><img src="" id="forecast1ConditionIcon"></img></td>
+                            <td><span id="forecast1WindSpeed"></span> mph from <span id="forecast1WindDir"></span></td>
+                        </tr>
+                        <tr>
+                            <td><span id="forecast2DayTime"></span></td>
+                            <td><span id="forecast2Temp"></span>&#8457</td>
+                            <td><img src="" id="forecast2ConditionIcon"></img></td>
+                            <td><span id="forecast2WindSpeed"></span> mph from <span id="forecast2WindDir"></span></td>
+                        </tr>
+                        <tr>
+                            <td><span id="forecast3DayTime"></span></td>
+                            <td><span id="forecast3Temp"></span>&#8457</td>
+                            <td><img src="" id="forecast3ConditionIcon"></img></td>
+                            <td><span id="forecast3WindSpeed"></span> mph from <span id="forecast3WindDir"></span></td>
+                        </tr>
+                        <tr>
+                            <td><span id="forecast4DayTime"></span></td>
+                            <td><span id="forecast4Temp"></span>&#8457</td>
+                            <td><img src="" id="forecast4ConditionIcon"></img></td>
+                            <td><span id="forecast4WindSpeed"></span> mph from <span id="forecast4WindDir"></span></td>
+                        </tr>
+                    </table>
+
+                    <div id="radarMap" style="width:100%;height:380px;" class="not-displayed"> </div>
+
+                    <!--<div id="radarLinks">
+                        <button id="get-cloudOverlay-btn">Cloud</button>
+                        <button id="get-loopOverlay-btn">Loop</button>
+                        <button id="get-currentOverlay-btn">Current</button>
+                    </div>-->
+
+                    <div id="radarDesc" style="text-align:center;" class="not-displayed"> </div>
+
+                    <div id="error-msg" class="not-displayed">
+                    </div>
                 </div>
 
-            </div>
-
             <footer data-role="footer" data-position="fixed">
-                <h4></h4>
+                <h4>Created by Faceoff Development</h4>
             </footer>
 
         </div>
@@ -57,5 +105,9 @@
         <script src="scripts/jquery-2.2.3.min.js"></script>
         <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
         <script src="scripts/weather.js"></script>
+
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+        <!--<script src="http://openlayers.org/en/v3.15.1/build/ol.js"></script>-->
+
     </body>
 </html>
